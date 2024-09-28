@@ -1,8 +1,12 @@
 FROM my-ruby-image:latest
 
-WORKDIR /home
+WORKDIR home
+ADD . home
+ 
+RUN gem install bundler
+RUN gem env home
 
-COPY ../rails_todo /home
+COPY Gemfile Gemfile
 
 RUN bundle install
 
