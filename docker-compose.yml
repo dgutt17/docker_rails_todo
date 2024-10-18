@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # Rails service
+  web:
+    image: my-rails-image:latest # Replace with your local Rails image name
+    container_name: rails-server
+    ports:
+      - "3000:3000" # Exposes Rails server on port 3000
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/mydatabase
+      - REDIS_URL=redis://redis:6379/0
+      - RAILS_ENV=development
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - .:/app
+    working_dir: /todo_list
+    command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+
+  # PostgreSQL service
+  db:
+    image: postgres:latest # You can choose a version or 'latest'
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # Redis service
+  redis:
+    image: redis:alpine
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
+    driver: local

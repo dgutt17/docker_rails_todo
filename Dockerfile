@@ -5,5 +5,14 @@ RUN apt-get -y install autoconf bison build-essential libssl-dev libyaml-dev lib
 
 RUN apt-get -y install vim curl
 
-RUN ruby -v
+WORKDIR /todo_list
 
+COPY . ./
+
+RUN gem install bundler
+
+RUN bundle update
+
+RUN bundle install
+
+RUN bundle exec rails assets:precompile
