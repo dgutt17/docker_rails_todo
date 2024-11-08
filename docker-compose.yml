@@ -10,7 +10,6 @@ services:
     environment:
       #- DATABASE_URL=postgres://postgres:password@db:5432/todo_list
       - DB_HOST=172.18.0.3
-      - DB_NAME=todo_list
       - DB_USERNAME=postgres
       - DB_PASSWORD=password
       - REDIS_URL=redis://redis:6379/0
@@ -30,7 +29,6 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: todo_list
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
