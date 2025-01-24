@@ -9,7 +9,7 @@ services:
       - "3000:3000" # Exposes Rails server on port 3000
     environment:
       #- DATABASE_URL=postgres://postgres:password@db:5432/todo_list
-      - DB_HOST=172.18.0.3
+      - DB_HOST=db
       - DB_USERNAME=postgres
       - DB_PASSWORD=password
       - REDIS_URL=redis://redis:6379/0
@@ -18,7 +18,7 @@ services:
       - db
       - redis
     volumes:
-      - .:/app
+      - .:/todo_list
     working_dir: /todo_list
     command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
 
